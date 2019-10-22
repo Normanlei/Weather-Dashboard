@@ -11,3 +11,7 @@ html,body{
     flex: 0 0 auto;
     width: 200px;
 }
+
+#currWeather p{
+    color: rgb(168, 164, 164);
+}
