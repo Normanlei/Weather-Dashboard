@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Dashborad</title>
+    <!-- Bootstrap CSS CDN  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome CSS Icons (For cool glyphicons) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container-fluid p-0">
+        <!--Jumbotro for Headerd-->
+        <div class="jumbotron-fluid p-2" style="background-color:rgb(65, 63, 63); color: white;">
+            <h1 class="text-center">
+                <strong>Weather Dashboard</strong>
+            </h1>
+        </div>
+
+        <!--Row for Body Section-->
+
+        <div class="row justify-content-between">
+            <!--Left Search section-->
+            <div class="col-4 p-0">
+                <div class="bg-light p-4">
+                    <div class="form-group input-group-lg">
+                        <h4 for="search">Search for a city:</h4>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="city">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button"><i
+                                        class="fa fa-search search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--List of History City (list groud item)-->
+                    <ul class="list-group" id="cityList">
+                    </ul>
+                </div>
+            </div>
+            <!--Right Search section-->
+            <div class="bg-white" style="width: 65%;">
+                <div class="jumbotron bg-transparent m-0 px-3 py-4 mt-2 border">
+                    <p>It uses uxtility classes for typogra</p>
+                </div>
+                <div class="jumbotron bg-transparent m-0 px-3 py-4">
+                    <p>It uses uxtility classes for typogra</p>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Code to the JavaScript File -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
