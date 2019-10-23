@@ -9,9 +9,24 @@ html,body{
 
 #city{
     flex: 0 0 auto;
-    width: 200px;
+    width: 160px;
 }
 
 #currWeather p{
-    color: rgb(168, 164, 164);
+    color: rgb(99, 97, 97);
+}
+
+#uvnum{
+    color: white;
+    padding: 8px;
+    border-radius: 5px;;
+}
+
+#fivedays{
+    color: white;
+    font-size: 13px;
+}
+
+#fivedays img{
+    width: 50px;
 }
