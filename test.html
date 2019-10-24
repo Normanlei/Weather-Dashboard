@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>some</title>
+    <!-- jQuery JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- jQuery UI JS -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <input type="text" name="" id="norman">
+
+    <script>
+        var souces = [
+            "china", "beijing", "guangzhou"
+        ];
+
+        $('#norman').autocomplete({
+            source: ["china", "beijing", "guangzhou"],
+            minLength:1,
+            autoFocus: true,
+        });
+
+
+
+    </script>
+
+
+</body>
+
+
+
+</html>
