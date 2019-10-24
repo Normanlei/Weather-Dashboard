@@ -142,7 +142,7 @@ function addHistory(name) {
 
 function listHistory() {
     for (var i = 0; i < searchHis.length; i++) {
-        var listDiv = "<li class='list-group-item' id='" + searchHis[i] + "'>" + searchHis[i] + "</li>";
+        var listDiv = "<li class='list-group-item' id='" + searchHis[i] + "'>" + searchHis[i] + "<span aria-hidden='true' id='close'>&times;</span>"+"</li>";
         $("#cityList").append(listDiv);
     }
 }

@@ -30,3 +30,16 @@ html,body{
 #fivedays img{
     width: 50px;
 }
+
+.list-ground-item {
+    position: relative;
+}
+
+#close {
+    position: absolute;
+    right: 15px;
+}
+
+#close:hover{
+    background-color: rgb(185, 183, 183);
+}
