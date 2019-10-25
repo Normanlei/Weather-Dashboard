@@ -11,19 +11,20 @@ $(document).ready(function () {
     listHistory();
 
     // Ajax Weather from OpenWeather.com
+    // press search button to trigger
     $(".search").on("click", function () {
         var city = $("#city").val().trim();
         var country = $("#country").val().trim();
         renderWeather(city, country);
-        //renderForecast();
     });
+
+    // press enter key to trigger
     $("#city,#country").keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
             var city = $("#city").val().trim();
             var country = $("#country").val().trim();
             renderWeather(city, country);
-            //renderForecast();
         }
     });
 
@@ -35,6 +36,7 @@ $(document).ready(function () {
         renderWeather(city, country);
     });
 
+    //delete the item on the list of history
     $(".close").on("click", function () {
         event.preventDefault();
         event.stopPropagation();
@@ -68,7 +70,7 @@ $(document).ready(function () {
     }
 
 
-    // render weather by city name 
+    // render weather by city name and country with US as default value
     function renderWeather(city, country) {
         var APIKey = "166a433c57516f51dfab1f7edaed8413";
         // Here we are building the URL we need to query the database
@@ -189,7 +191,7 @@ $(document).ready(function () {
 
 
     //geoLocation 
-    //geoFindMe();
+    geoFindMe();
     function geoFindMe() {
         function success(position) {
             const latitude = position.coords.latitude;
@@ -211,32 +213,35 @@ $(document).ready(function () {
 
     // Compare function for the localStorage
     function compare(obj1, obj2) {
-        if (obj1.country != obj2.country){
+        if (obj1.country != obj2.country) {
             return obj1.country.localeCompare(obj2.country)
-        }else 
-        return obj1.city.localeCompare(obj2.city);
+        } else
+            return obj1.city.localeCompare(obj2.city);
     }
-
-    // var mycountry = [];
-    // for (var property in countries) {
-    //     var temp = { value: countries[property], data: property };
-    //     mycountry.push(temp);
-    // }
-
-    // $('#country').autocomplete({
-    //     lookup: mycountry,
-
-    //     onSelect: function (suggestion) {
-    //         console.log(suggestion.data);
-    //         $('#autocomplete').val(suggestion.data);
-    //     },
-    //     lookupFilter: function (suggestion, query, queryLowerCase) {
-    //         var value = suggestion.value.toLowerCase();
-    //         return value.indexOf(queryLowerCase) === 0 || value.indexOf(query) === 0;
-    //     }
-    // });
-
 
 });
 
+
+// autocomplete.js part especially for the country entry input, getting ISO 3166 country codes
+
+//database of country full with ISO 3166 country codes
+var mycountry = [];
+for (var property in countries) {
+    var temp = { value: countries[property], data: property };
+    mycountry.push(temp);
+}
+
+//autocomplete function triggering 
+$('#country').autocomplete({
+    lookup: mycountry,
+
+    onSelect: function (suggestion) {
+        //console.log(suggestion.data);
+        $('#country').val(suggestion.data);
+    },
+    lookupFilter: function (suggestion, query, queryLowerCase) {
+        var value = suggestion.value.toLowerCase();
+        return value.indexOf(queryLowerCase) === 0 || value.indexOf(query) === 0;
+    }
+});
 

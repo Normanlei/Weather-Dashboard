@@ -3,19 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
+
     <title>Weather Dashborad</title>
+
     <!-- Bootstrap CSS CDN  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <!-- Font Awesome CSS Icons (For cool glyphicons) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
     <!--CSS-->
-    <!-- <link href="autocomplete testing /autocomplete_styles.css" rel="stylesheet" type="text/css"> -->
+    <link href="autocomplete testing /autocomplete_styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <!--Nav bar-->
     <div class="container-fluid p-0">
         <!--Jumbotro for Headerd-->
         <div class="jumbotron-fluid p-2" style="background-color:rgb(65, 63, 63); color: white;">
@@ -25,7 +29,6 @@
         </div>
 
         <!--Row for Body Section-->
-
         <div class="row justify-content-between">
             <!--Left Search section-->
             <div class="col-3 p-0">
@@ -33,25 +36,37 @@
                     <div class="form-group input-group-lg">
                         <h5 for="search">Search for a city:</h5>
                         <div class="input-group">
+                            <!--city input-->
                             <input type="text" class="form-control" id="city" placeholder="city">
+                            <!--country input with US as default value-->
                             <input type="text" class="form-control" id="country" value="US">
+                            <!--search button-->
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button"><i
+                                <button class="btn btn-primary" type="button" id="searchbtn1"><i
                                         class="fa fa-search search"></i></button>
                             </div>
                         </div>
+                        <!--search button for media query-->
+                        <button class="btn btn-primary" type="button" id="searchbtn2"
+                            style="width: 200px; display: none;"><i class="fa fa-search search"></i></button>
+                        <br>
                         <a href="#" id="getlocation">Get Current Location</a>
                     </div>
+
                     <!--List of History City (list groud item)-->
                     <ul class="list-group" id="cityList">
 
                     </ul>
                 </div>
             </div>
+
             <!--Right Search section-->
             <div class="bg-white" style="width: 73%;">
+                <!--Current weather section-->
                 <div class="jumbotron bg-transparent m-0 px-3 py-4 mt-2 border" id="currWeather" style="display: none;">
                 </div>
+
+                <!--forecast weather section-->
                 <div class="jumbotron bg-transparent m-0 px-3 py-4" id="forecastWeather">
                     <h3 id="forecastTitle" style="display: none;">5-Day Forecast:</h3>
                     <div class="row justify-content-around pr-3 pt-3" id="fivedays">
@@ -66,12 +81,14 @@
 
     <!-- jQuery JS -->
     <script src="https://code.jquery.com/jquery.js"></script>
+
     <!-- jQuery UI JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
     <script src="autocomplete testing /jquery.autocomplete.min.js"></script>
 
     <!--Moment.js for date-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    
     <!-- Code to the JavaScript File -->
     <script src="autocomplete testing /countries.js"></script>
     <script src="script.js"></script>
