@@ -13,22 +13,26 @@ $(document).ready(function () {
     // Ajax Weather from OpenWeather.com
     $(".search").on("click", function () {
         var city = $("#city").val().trim();
-        renderWeather(city);
+        var country = $("#country").val().trim();
+        renderWeather(city, country);
         //renderForecast();
     });
-    $("#city").keypress(function (event) {
+    $("#city,#country").keypress(function (event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
             var city = $("#city").val().trim();
-            renderWeather(city);
+            var country = $("#country").val().trim();
+            renderWeather(city, country);
             //renderForecast();
         }
     });
 
     //Trigger from the list of history
     $("#cityList").on("click", function () {
-        var city = event.target.id.trim();
-        renderWeather(city);
+        var cityCountry = event.target.id.trim();
+        var city = cityCountry.substring(0, cityCountry.length - 3);
+        var country = cityCountry.substring(cityCountry.length - 2);
+        renderWeather(city, country);
     });
 
     $(".close").on("click", function () {
@@ -56,20 +60,20 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-                console.log(response);
+                console.log(response.sys.country);
                 renderCurrWeather(response);
-                renderForecast(response.name);
-                addHistory(response.name);
+                renderForecast(response.name, response.sys.country);
+                addHistory(response.name, response.sys.country);
             });
     }
 
 
     // render weather by city name 
-    function renderWeather(city) {
+    function renderWeather(city, country) {
         var APIKey = "166a433c57516f51dfab1f7edaed8413";
         // Here we are building the URL we need to query the database
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?units=imperial&" +
-            "q=" + city + "&appid=" + APIKey;
+            "q=" + city + "," + country + "&appid=" + APIKey;
 
         $.ajax({
             url: queryURL,
@@ -78,8 +82,8 @@ $(document).ready(function () {
             .then(function (response) {
                 console.log(response);
                 renderCurrWeather(response);
-                renderForecast(response.name);
-                addHistory(response.name);
+                renderForecast(response.name, country);
+                addHistory(response.name, country);
             })
             .fail(function () {
                 alert("The City You Entered is not Valid!!!");
@@ -131,13 +135,13 @@ $(document).ready(function () {
     }
 
     //render 5 days forecast from today
-    function renderForecast(city) {
+    function renderForecast(city, country) {
         $("#forecastTitle").css("display", "block");
         $("#fivedays").html("");
         var APIKey = "166a433c57516f51dfab1f7edaed8413";
         //var city = $("#city").val().trim();
         var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&" +
-            "q=" + city + "&appid=" + APIKey;
+            "q=" + city + "," + country + "&appid=" + APIKey;
 
         $.ajax({
             url: forecastQueryURL,
@@ -163,10 +167,11 @@ $(document).ready(function () {
     }
 
     //add to the history list
-    function addHistory(name) {
-        if (!searchHis.includes(name)) { //not duplicated
-            searchHis.push(name);
-            searchHis.sort(); // sort by first letter
+    function addHistory(name, country) {
+        var tempObject = { city: name, country: country };
+        if (!searchHis.some(e => (e.city === name && e.country === country))) { //not duplicated
+            searchHis.push(tempObject);
+            searchHis.sort(compare);
             localStorage.setItem("city", JSON.stringify(searchHis));
             $("#cityList").html("");
             listHistory();
@@ -175,16 +180,16 @@ $(document).ready(function () {
 
     // list out the history
     function listHistory() {
-        searchHis.sort();
+        searchHis.sort(compare);
         for (var i = 0; i < searchHis.length; i++) {
-            var listDiv = "<li class='list-group-item' id='" + searchHis[i] + "'>" + searchHis[i] + "<span aria-hidden='true' class='close' data-value ='" + i + "'>&times;</span>" + "</li>";
+            var listDiv = "<li class='list-group-item' id='" + searchHis[i].city + "-" + searchHis[i].country + "'>" + searchHis[i].city + "-" + searchHis[i].country + "<span aria-hidden='true' class='close' data-value ='" + i + "'>&times;</span>" + "</li>";
             $("#cityList").append(listDiv);
         }
     }
 
 
     //geoLocation 
-    geoFindMe();
+    //geoFindMe();
     function geoFindMe() {
         function success(position) {
             const latitude = position.coords.latitude;
@@ -203,6 +208,34 @@ $(document).ready(function () {
         }
 
     }
+
+    // Compare function for the localStorage
+    function compare(obj1, obj2) {
+        if (obj1.country != obj2.country){
+            return obj1.country.localeCompare(obj2.country)
+        }else 
+        return obj1.city.localeCompare(obj2.city);
+    }
+
+    // var mycountry = [];
+    // for (var property in countries) {
+    //     var temp = { value: countries[property], data: property };
+    //     mycountry.push(temp);
+    // }
+
+    // $('#country').autocomplete({
+    //     lookup: mycountry,
+
+    //     onSelect: function (suggestion) {
+    //         console.log(suggestion.data);
+    //         $('#autocomplete').val(suggestion.data);
+    //     },
+    //     lookupFilter: function (suggestion, query, queryLowerCase) {
+    //         var value = suggestion.value.toLowerCase();
+    //         return value.indexOf(queryLowerCase) === 0 || value.indexOf(query) === 0;
+    //     }
+    // });
+
 
 });
 

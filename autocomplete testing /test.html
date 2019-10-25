@@ -8,14 +8,22 @@
     <!-- jQuery UI JS -->
     <script src="jquery.autocomplete.min.js"></script>
     <script src="countries.js"></script>
-    <link href="styles.css" rel="stylesheet" type="text/css">
+    <link href="autocomplete_styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <input type="text" name="" id="autocomplete">
-    
+
     <script>
-        console.log(countries.length);
+        console.log(countries);
+
+        var mycountry = [];
+        for (var property in countries) {
+            var temp = { value: countries[property], data: property };
+            mycountry.push(temp);
+        }
+
+        console.log(mycountry);
         // var countries = [
         //     { value: 'Andorra', data: 'AD' },
         //     { value: 'Zimbabwe', data: 'ZZ' }
@@ -32,11 +40,7 @@
         //         // Do Ajax call or lookup locally, when done,
         //         // call the callback and pass your results:
         //         var result = {
-        //             suggestions: [
-        //                 { "value": "United Arab Emirates", "data": "AE" },
-        //                 { "value": "United Kingdom", "data": "UK" },
-        //                 { "value": "United States", "data": "US" }
-        //             ]
+        //             suggestions: mycountry
         //         };
 
         //         done(result);
@@ -44,8 +48,27 @@
         //     onSelect: function (suggestion) {
         //         console.log(suggestion.data);
         //         $('#autocomplete').val(suggestion.data);
+        //     },
+        //     lookupFilter: function (suggestion, query, queryLowerCase) {
+        //         var value = suggestion.value.toLowerCase();
+        //         console.log(value);
+        //         return value.indexOf(queryLowerCase) === 0;
         //     }
         // });
+
+        $('#autocomplete').autocomplete({
+            lookup: mycountry,
+    
+            onSelect: function (suggestion) {
+                console.log(suggestion.data);
+                $('#autocomplete').val(suggestion.data);
+            },
+            lookupFilter: function (suggestion, query, queryLowerCase) {
+                var value = suggestion.value.toLowerCase();
+                return value.indexOf(queryLowerCase) === 0 || value.indexOf(query) === 0;
+            }
+        });
+
 
 
 
