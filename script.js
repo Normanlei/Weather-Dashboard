@@ -149,21 +149,26 @@ $(document).ready(function () {
             url: forecastQueryURL,
             method: "GET"
         }).then(function (response) {
-            for (var i = 1; i <= 5; i++) {
-                var date = moment().add(i, "d").format("MM/DD/YYYY");
-                var icon = response.list[i - 1].weather[0].icon;
-                var temp = response.list[i - 1].main.temp;
-                var humidity = response.list[i - 1].main.humidity;
-                var card = $("<div class='card p-2 bg-primary' style='width: 18%'>");
-                var dateDiv = "<h6>" + date + "</h6>";
-                card.append(dateDiv);
-                var iconDiv = "<img src='http://openweathermap.org/img/wn/" + icon + "@2x.png' alt='icon'/>"
-                card.append(iconDiv);
-                var tempDiv = "<p>Temperature: " + temp + " °F</p>";
-                card.append(tempDiv);
-                var humDiv = "<p>Humidity: " + humidity + "%</p>";
-                card.append(humDiv);
-                $("#fivedays").append(card);
+            var extraday = 1;
+            for (var i = 0; i < response.list.length; i++) {
+                var date = moment().add(extraday, "d").format("YYYY-MM-DD");
+                var tempdate = date.trim() + ' 12:00:00'; //filter every other date 12pm weather
+                if (response.list[i].dt_txt.includes(tempdate)) {
+                    extraday++;
+                    var icon = response.list[i].weather[0].icon;
+                    var temp = response.list[i].main.temp;
+                    var humidity = response.list[i].main.humidity;
+                    var card = $("<div class='card p-2 bg-primary' style='width: 18%'>");
+                    var dateDiv = "<h6>" + moment().add(extraday-1, "d").format("MM/DD/YYYY") + "</h6>";
+                    card.append(dateDiv);
+                    var iconDiv = "<img src='http://openweathermap.org/img/wn/" + icon + "@2x.png' alt='icon'/>"
+                    card.append(iconDiv);
+                    var tempDiv = "<p>Temperature: " + temp + " °F</p>";
+                    card.append(tempDiv);
+                    var humDiv = "<p>Humidity: " + humidity + "%</p>";
+                    card.append(humDiv);
+                    $("#fivedays").append(card);
+                }
             }
         });
     }
