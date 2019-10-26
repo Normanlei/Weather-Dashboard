@@ -196,7 +196,7 @@ $(document).ready(function () {
 
 
     //geoLocation 
-    geoFindMe();
+    //geoFindMe();
     function geoFindMe() {
         function success(position) {
             console.log(position);
