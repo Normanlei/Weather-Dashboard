@@ -199,6 +199,7 @@ $(document).ready(function () {
     geoFindMe();
     function geoFindMe() {
         function success(position) {
+            console.log(position);
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             renderWeatherGeo(latitude, longitude);
